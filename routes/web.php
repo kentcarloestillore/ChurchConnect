@@ -6,6 +6,7 @@ use App\Http\Controllers\BaptismalController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DeathController;
 use App\Http\Controllers\MarriageController;
+use App\Http\Controllers\ReceiptController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,9 +42,14 @@ Route::get('/pss', function () {
     return view('pages.pss');
 })->middleware(['auth', 'verified'])->name('pss');
 
-Route::get('/receipts', function () {
-    return view('pages.receipts');
-})->middleware(['auth', 'verified'])->name('receipts');
+// Route::get('/receipts', function () {
+//     return view('pages.receipts');
+// })->middleware(['auth', 'verified'])->name('receipts');
+
+Route::get('/receipts', [ReceiptController::class, 'index'])->name('receipts');
+Route::get('/receipts/create', [ReceiptController::class, 'create'])->name('receipts.create');
+Route::post('/receipts/create', [ReceiptController::class, 'store'])->name('receipts.store');
+Route::get('/receipts/create/detail', [ReceiptController::class, 'create'])->name('receipts.create');
 
 Route::get('/schedule', function () {
     return view('pages.schedule');

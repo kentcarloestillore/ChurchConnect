@@ -53,9 +53,9 @@ Route::get('/earning', function () {
     return view('pages.earning');
 })->middleware(['auth', 'verified'])->name('earning');
 
-Route::get('/pamisa', function () {
-    return view('pages.pamisa');
-})->middleware(['auth', 'verified'])->name('pamisa');
+Route::get('/pamisa', [PageController::class, 'pamisa'])->middleware(['auth', 'verified'])->name('pamisa');
+Route::get('/pamisa/create/{receipt_id}', [PamisaController::class, 'create'])->middleware(['auth', 'verified']);
+Route::post('/pamisa/create', [PamisaController::class, 'store'])->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

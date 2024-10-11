@@ -34,4 +34,27 @@ class PamisaController extends Controller
     public function create($receipt_id){
         return view('pamisa.pamisa-create', ['receipt_id' => $receipt_id]);
     }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'name'                  => 'required|string',
+            'prayer_intention'      => 'required|string',
+            'prayer_intention_to'   => 'required|string',
+            'date'                  => 'required|date',
+            'receipt_id'           => 'required|integer',
+            'church_id'             => 'required|integer',
+        ]);
+
+        Pamisa::create([
+            'name'                  => $request->name,
+            'prayer_intention'      => $request->prayer_intention,
+            'prayer_intention_to'   => $request->prayer_intention_to,
+            'date'                  => $request->date,
+            'receipt_id'            => $request->receipt_id,
+            'church_id'             => $request->church_id,
+        ]);
+
+        return redirect('/pamisa');
+    }
 }
